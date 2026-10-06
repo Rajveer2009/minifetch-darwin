@@ -42,16 +42,16 @@ LOGO = [
     ("\033[95m", " :_________`-;"),
     ("\033[94m", "  `.__.-.__.'"),
 ]
-info = [
-    ("", f"{run('whoami')}@{platform.node().split('.')[0]}"),
-    ("OS", f"macOS {platform.mac_ver()[0]}"),
-    ("Kernel", platform.release()),
-    ("Packages", packages()),
-    ("Memory", memory()),
-    ("Uptime", uptime()),
-    ("", ""),
+rows = [
+    ("\u256d\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500", None),
+    ("\u2502", ("OS", f"macOS {platform.mac_ver()[0]}")),
+    ("\u2502", ("Kernel", platform.release())),
+    ("\u2502", ("Packages", packages())),
+    ("\u2502", ("Memory", memory())),
+    ("\u2502", ("Uptime", uptime())),
+    ("\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500", None),
 ]
 
-for (color, art), (label, value) in zip(LOGO, info):
-    text = f"{color}{label}{R}\u203a {value}" if label else f"{color}{value}{R}"
+for (color, art), (border, item) in zip(LOGO, rows):
+    text = f"{color}{border}{R} {color}{item[0]}{R}\u203a {item[1]}" if item else f"{color}{border}{R}"
     print(f"{color}{art.ljust(17)}{R}{text}")

@@ -1,0 +1,14 @@
+[project]
+name = "minifetch"
+version = "0.2.0"
+description = "A tiny, fast system fetch for macOS and Linux"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.8"
+
+[project.scripts]
+minifetch = "minifetch:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

@@ -1,34 +1,27 @@
 # minifetch-darwin
 
-A tiny, fast system fetch script for macOS, written in Python with no dependencies.
+A tiny, fast system fetch for macOS and Linux, written in Python with no dependencies.
 
-A macOS port of [RohanKP1/minifetch](https://github.com/RohanKP1/minifetch), which is Arch Linux only.
+A port of [RohanKP1/minifetch](https://github.com/RohanKP1/minifetch), which is Arch Linux only.
 
-## What it shows
-
-OS version, kernel, Homebrew package count, memory usage and uptime, next to a small logo.
+- **macOS:** rainbow Apple logo. Values come straight from `sysctl` and the Mach API through `ctypes`, with no subprocesses.
+- **Linux:** penguin logo. Values come from `/proc` and `/etc/os-release`.
+- Shows OS, kernel, package count, memory and uptime. Runs in about 25 ms.
 
 ## Installation
 
+With [uv](https://docs.astral.sh/uv/):
+
 ```shell
-git clone https://github.com/Rajveer2009/minifetch-darwin.git
-cd minifetch-darwin
-mkdir -p ~/.local/bin && cp minifetch ~/.local/bin/
+uv tool install git+https://github.com/Rajveer2009/minifetch-darwin
 ```
 
-Make sure `~/.local/bin` is on your `PATH`. In fish:
+Then run `minifetch`. Update with `uv tool upgrade minifetch`, remove with `uv tool uninstall minifetch`.
 
-```fish
-fish_add_path ~/.local/bin
-```
+## Notes
 
-Then run `minifetch`.
-
-## Requirements
-
-- macOS
-- Python 3 (the one bundled with the Xcode command line tools works)
-- Homebrew (optional, used for the package count)
+- Package count on macOS is Homebrew formulae plus casks. On Linux it supports pacman and dpkg, and shows 0 otherwise.
+- The Linux path is untested on real hardware.
 
 ## License
 

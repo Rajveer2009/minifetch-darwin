@@ -32,13 +32,26 @@ def packages():
         return 0
 
 
-C, G, B, R = "\033[96m", "\033[92m", "\033[94m", "\033[0m"
-os_name = f"macOS {platform.mac_ver()[0]}"
+R = "\033[0m"
+LOGO = [
+    ("\033[92m", "        .:'"),
+    ("\033[92m", "    __ :'__"),
+    ("\033[93m", " .'`__`-'__``."),
+    ("\033[38;5;208m", ":__________.-'"),
+    ("\033[91m", ":_________:"),
+    ("\033[95m", " :_________`-;"),
+    ("\033[94m", "  `.__.-.__.'"),
+]
+info = [
+    ("", f"{run('whoami')}@{platform.node().split('.')[0]}"),
+    ("OS", f"macOS {platform.mac_ver()[0]}"),
+    ("Kernel", platform.release()),
+    ("Packages", packages()),
+    ("Memory", memory()),
+    ("Uptime", uptime()),
+    ("", ""),
+]
 
-print(f"""                    {C}╭────────────{R}
-         {G}/\\{R}         {C}│{R} {B}OS{R}› {os_name}
-        {G}/  \\{R}        {C}│{R} {B}Kernel{R}› {platform.release()}
-       {B}/ /\\ \\{R}       {C}│{R} {B}Packages{R}› {packages()}
-      {B}/ /  \\ \\{R}      {C}│{R} {B}Memory{R}› {memory()}
-     {B}/_/    \\_\\{R}     {C}│{R} {B}Uptime{R}› {uptime()}
-                    {C}╰────────────{R}""")
+for (color, art), (label, value) in zip(LOGO, info):
+    text = f"{color}{label}{R}\u203a {value}" if label else f"{color}{value}{R}"
+    print(f"{color}{art.ljust(17)}{R}{text}")
